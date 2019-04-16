@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="http://java.sun.com/jsf/html"
+ xmlns:composite="http://java.sun.com/jsf/composite"
+ xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:ui="http://java.sun.com/jsf/facelets"
+ xmlns:gestion="http://java.sun.com/jsf/composite/gestion"
+ xmlns:rich="http://richfaces.org/rich">
+<composite:interface>
+    <composite:attribute name="idDialog" />
+    <composite:attribute name="idDialogLabel" />
+    <composite:attribute name="inOutInfo" />
+    <composite:attribute name="title" />
+    <composite:attribute name="year" />
+    <composite:attribute name="mes" />
+    <composite:attribute name="fase" />
+    <composite:attribute name="flujoTicket" />
+</composite:interface>
+<composite:implementation>
+    <div id="#{cc.attrs.idDialog}" class="modal hide fade" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="#{cc.attrs.idDialogLabel}" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="#{cc.attrs.idDialogLabel}">
+                <h:outputText value="#{cc.attrs.title}" />
+            </h3>
+        </div>
+        <div class="modal-body">
+        <p>
+         <table class="table table-striped table-hover">
+             <thead>
+                 <tr>
+                     <th>#{messages.ticketTipo}</th>
+                     <th>Total</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr>
+                     <td>#{messages.tt_incidente_dato}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.incidenteDato}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_incidente_programa}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.incidentePrograma}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_consulta}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.consulta}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_ajuste_interno}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.ajusteInterno}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_mejora_programa}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.mejoraPrograma}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_nuevo_programa}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.nuevoPrograma}" /></td>
+                 </tr>                 
+                 <tr>
+                     <td>#{messages.tt_error_hw}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.fallaHardware}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_error_sw}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.fallaSoftware}" /></td>
+                 </tr>
+                 <tr>
+                     <td>#{messages.tt_error_enlace}</td>
+                     <td><h:outputText value="#{cc.attrs.inOutInfo.fallaEnlace}" /></td>
+                 </tr>                 
+             </tbody>
+         </table>
+         
+         <h:link 
+             outcome="detalle" 
+             style="margin-left:5px;"
+             styleClass="btn btn-primary">
+             <i class="icon-list" title="#{messages.detalle}"></i>
+             <h:outputText value=" #{messages.detalle}" />
+             <f:param name="year" value="#{cc.attrs.year}" />
+             <f:param name="mes" value="#{cc.attrs.mes}" />
+             <f:param name="fase" value="#{cc.attrs.fase.id}" />
+             <f:param name="flujoTicket" value="#{cc.attrs.flujoTicket}" />
+         </h:link>
+        </p>
+        </div>
+    </div>
+</composite:implementation>
+</html>

@@ -1,0 +1,120 @@
+version: '3'
+services:
+  # eureka-server:
+  #   image: loanapp_eureka-server
+  #   ports:
+  #     - 8761:8761
+  #   networks:
+  #     - loan-net
+
+  client-service:
+    image: loanapp_client-service
+    # ports:
+    #   - 8082:8082
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    # depends_on:
+    #   - eureka-server
+    # links:
+    #   - eureka-server
+    #   - mysql01
+    networks:
+      - loan-net
+
+  # savings-account-service:
+  #   image: loanapp_savings-account-service
+  #   ports:
+  #     - 8083:8083
+  #   depends_on:
+  #     - eureka-server
+  #   links:
+  #     - eureka-server
+  #     - mysql02
+  #   networks:
+  #     - loan-net
+  #
+  # scoring-service:
+  #   image: loanapp_scoring-service
+  #   ports:
+  #     - 8084:8084
+  #   depends_on:
+  #     - eureka-server
+  #   links:
+  #     - eureka-server
+  #   networks:
+  #     - loan-net
+
+  # mysql01:
+  #   image: mysql:latest
+  #   networks:
+  #     - loan-net
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=ThePassword
+  #     - MYSQL_DATABASE=client-db
+  #   volumes:
+  #     - mysql01-volume:/var/lib/mysql
+
+  # mysql02:
+  #   image: mysql:latest
+  #   networks:
+  #     - loan-net
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=ThePassword
+  #     - MYSQL_DATABASE=savings-account-db
+  #   volumes:
+  #     - mysql02-volume:/var/lib/mysql
+
+  # Zuul API Gateway
+  # api-gateway:
+  #   image: loanapp_api-gateway
+  #   ports:
+  #     - 8765:8765
+  #   networks:
+  #     - loan-net
+  #   depends_on:
+  #     - client-service
+  #     - savings-account-service
+
+  # Zipkin
+  # zipkin-server:
+  #   image: loanapp_zipkin-server
+  #   ports:
+  #     - 9411:9411
+  #   networks:
+  #     - loan-net
+
+  # Turbine
+  # turbine:
+  #   image: loanapp_turbine
+  #   ports:
+  #     - 8092:8092
+  #   networks:
+  #     - loan-net
+  #   links:
+  #     - eureka-server
+  #     - savings-account-service
+  #     - client-service
+
+  # Hystrix Dashboard
+  # hystrix-dashboard:
+  #   image: loanapp_hystrix-dashboard
+  #   ports:
+  #     - 8090:8090
+  #   networks:
+  #     - loan-net
+  #   links:
+  #     - turbine
+
+networks:
+  loan-net:
+    driver: overlay
+
+# volumes:
+#   mysql01-volume:
+  # mysql02-volume:

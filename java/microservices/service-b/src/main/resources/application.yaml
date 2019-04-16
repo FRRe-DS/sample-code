@@ -1,0 +1,37 @@
+server:
+  port: ${PORT:8084}
+
+# configure eureka client
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+
+# custom attribute for the actuator info endpoint
+info:
+  app:
+    name: service-b
+    
+# give the application a name
+spring:
+  application:
+    name: service-b
+    
+# disable actuagor security for endpoints 
+management:
+  security:
+    enabled: false
+
+# custom logging settings
+logging:
+  level:
+      - ".=info"
+      - "ar.com.nbch.ms.serviceb=debug"
+      - "org.springframework=info"
+
+ribbon:
+  eureka:
+    enabled: true

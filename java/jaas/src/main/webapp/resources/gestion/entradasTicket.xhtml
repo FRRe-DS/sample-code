@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<composite:interface>
+		<composite:attribute name="entradasDCM"/>
+	</composite:interface>
+	<composite:implementation>
+		<rich:dataTable value="#{cc.attrs.entradasDCM}"
+			styleClass="table table-bordered table-striped table-condensed"
+			keepSaved="true" id="entradasDCMTable" var="result" rows="10">
+
+               	<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{messages.ticketEntradaDCM}" />
+				</f:facet>
+				<h:outputText value="#{result.numero}"/>
+			</h:column>  
+		
+               	<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{messages.ticketEntradaDCMTexto}" />
+				</f:facet>
+				<h:outputText value="#{result.name}"/>
+			</h:column> 
+
+               	<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{messages.ticketEntradaDCMEstado}" />
+				</f:facet>
+				<h:outputText value="#{messages[result.valid]}"/>
+			</h:column> 
+
+               	<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{messages.ticketEntradaDCMUsuario}" />
+				</f:facet>
+				<h:outputText value="#{result.usuario.name}"/>
+			</h:column> 
+
+               	<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{messages.ticketEntradaDCMFecha}" />
+				</f:facet>
+				<h:outputText value="#{result.fecha}" >
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+				</h:outputText>
+			</h:column> 
+
+			<f:facet name="footer">
+				<rich:dataScroller id="scroller" renderIfSinglePage="false"
+					stepControls="show" fastControls="hide" styleClass="pagination"
+					for="entradasDCMTable" maxPages="10">
+				</rich:dataScroller>
+			</f:facet>
+		</rich:dataTable>
+	</composite:implementation>
+</html>

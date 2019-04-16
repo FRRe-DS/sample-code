@@ -1,0 +1,42 @@
+info:
+  component: Edge Server
+
+server:
+  port: ${PORT:8765}
+
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs=debug"
+      - "org.springframework=info"
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    client:
+      path: /client-service/**
+      serviceId: client-service
+    savings-account:
+      path: /savings-account-service/**
+      serviceId: savings-account-service
+    scoring-service:
+      path: /scoring/**
+      serviceId: scoring-service
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+    registerWithEureka: false

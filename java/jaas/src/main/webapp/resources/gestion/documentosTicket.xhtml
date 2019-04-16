@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<composite:interface>
+		<composite:attribute name="documentos"/>
+	</composite:interface>
+	<composite:implementation>
+
+        <rich:dataTable value="#{cc.attrs.documentos}"
+            styleClass="table table-bordered table-striped table-condensed"
+            keepSaved="true" id="documentosTable" var="result" rows="20">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{messages.archivoName}" />
+                </f:facet>
+                <h:commandLink action="#{ticketBean.downloadFile(result.idEvidencia)}">
+                    <h:outputText value="#{result.nombreArchivo}" />
+                </h:commandLink>
+            </h:column>
+               
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{messages.archivoSize}" />
+                </f:facet>
+                <h:outputText value="#{result.length}" converter="ar.com.nbch.web.converter.FileSizeConverter" />
+            </h:column>
+               
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{messages.archivoUsuario}" />
+                </f:facet>
+                <h:outputText value="#{result.nombreUsuario}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{messages.ticketEvidenciaFecha}" />
+                </f:facet>
+                <h:outputText value="#{result.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                </h:outputText>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                </f:facet>
+                <h:commandLink id="remove-usuario-fase"                                     
+                    rendered="#{ticketBean.entity.estado != 'CERRADO' and ticketBean.entity.estado != 'RECHAZADO'}"
+                    action="#{ticketBean.removeDocumento(result.id)}">
+                    <i class="icon-remove" title="#{messages.remove}"></i>
+                    <f:ajax render="documentosTable"/>
+                </h:commandLink>
+            </h:column>
+               
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" 
+                    renderIfSinglePage="false"
+                    stepControls="show"
+                    fastControls="hide"
+                    styleClass="pagination"
+                    for="documentosTable" maxPages="10">
+                </rich:dataScroller>
+            </f:facet>                      
+        </rich:dataTable>
+
+        <rich:fileUpload id="upload"
+           rendered="#{ticketBean.entity.estado != 'CERRADO' and ticketBean.entity.estado != 'RECHAZADO'}"                     
+           style="heigth:100px;" 
+           fileUploadListener="#{ticketBean.agregarArchivoTicketListener}" 
+           acceptedTypes="pdf, doc, docx, png, jpg, zip, rar, msg, xls, xlsx"
+           maxFilesQuantity="1"
+           addLabel="Agregar archivo..." 
+           clearAllLabel="Quitar Todo" 
+           clearLabel="Quitar"
+           stopEntryLabel="Detener proceso" 
+           deleteLabel="Quitar"
+           uploadLabel="Subir">
+           <a4j:ajax event="uploadcomplete" 
+               execute="@form" 
+               render="documentosTable upload" />
+       </rich:fileUpload>
+	</composite:implementation>
+</html>

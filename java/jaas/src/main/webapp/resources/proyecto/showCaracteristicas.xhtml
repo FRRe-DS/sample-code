@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+<composite:interface>
+	<composite:attribute name="bean" />
+</composite:interface>
+<composite:implementation>
+	<rich:dataTable value="#{cc.attrs.bean.caracteristicas}"
+		styleClass="table table-bordered table-striped table-condensed"
+		keepSaved="true" id="caracteristicasTable" var="result" rows="20">
+		<h:column>
+        	<f:facet name="header">
+            	<h:outputText value="#{messages.pmCaracterisiticaNombre}" />
+			</f:facet>
+			<h:outputText value="#{result.caracteristica}" />
+		</h:column>
+
+		<h:column>
+        	<f:facet name="header">
+            	<h:outputText value="#{messages.pmCaracterisiticaCosto}" />
+			</f:facet>
+			<h:outputText value="#{result.costoEstimado}" />
+		</h:column>
+
+		<h:column>
+        	<f:facet name="header">
+            	<h:outputText value="#{messages.pmCaracterisiticaBeneficio}" />
+			</f:facet>
+			<h:outputText value="#{result.beneficioEstimado}" />
+		</h:column>
+
+		<h:column>
+        	<f:facet name="header">
+            	<h:outputText value="#{messages.pmCaracterisiticaRelacion}" />
+			</f:facet>
+			<h:outputText value="#{result.relacionCostoBeneficio}" />
+		</h:column>
+	</rich:dataTable>
+	
+	<h:link id="add-caracteristica"
+		style="margin-bottom:5px; "
+		styleClass="btn btn-success"
+		outcome="caracteristica/create">
+		<f:param name="proyectoId" value="#{cc.attrs.bean.entity.id}"/>
+		<i class="icon-ok" title="#{messages.pmCaracterisiticaAdd}"></i>
+		<h:outputText value=" #{messages.pmCaracterisiticaAdd}" />
+	</h:link>
+	
+</composite:implementation>
+</html>

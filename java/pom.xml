@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.edu.utn.frre</groupId>
+	<artifactId>dacs</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Desarrollo de Aplicaciones Cliente-Servidor</name>
+	<packaging>pom</packaging>
+	<url>http://www.frre.utn.edu.ar</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<javaee.version>7.0</javaee.version>
+
+		<!-- SLF4J -->
+		<slf4j.version>1.7.25</slf4j.version>
+
+		<!-- Log4J -->
+		<log4j.version>1.2.17</log4j.version>
+
+		<!-- JUnit -->
+		<junit.version>4.12</junit.version>
+
+		<!-- MySQL -->
+		<mysql.version>6.0.6</mysql.version>
+
+		<!-- Omni Faces -->
+		<omni.faces.version>3.1</omni.faces.version>
+
+		<!-- SLF4J -->
+		<slf4j.version>1.7.25</slf4j.version>
+
+		<!-- Hibernate -->
+		<hibernate.version>5.2.12.Final</hibernate.version>
+		<hibernate.validator.version>5.1.3.Final</hibernate.validator.version>
+
+		<!-- Flyway DB -->
+		<flyway.version>4.2.0</flyway.version>
+
+		<maven.compiler.version>3.7.0</maven.compiler.version>
+		<maven.jrebel.version>1.1.7</maven.jrebel.version>
+	</properties>
+
+	<modules>
+		<module>model-jpa</module>
+		<module>perisitencia-jdbc</module>
+		<module>perisitencia-jpa</module>
+		<module>dao-api</module>
+		<module>jax-ws-server</module>
+		<module>jax-ws-client</module>
+		<module>jax-rs-server</module>
+		<module>jax-rs-client</module>
+		<module>jms</module>
+		<module>jaas</module>
+	</modules>
+
+	<developers>
+		<developer>
+			<id>jorgevillaverde</id>
+			<email>jorgevillaverde@gmail.com</email>
+			<name>Jorge E. Villaverde</name>
+			<organization>FRRe</organization>
+			<roles>
+				<role>PROJECT MANAGER</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<id>jorgevillaverde</id>
+			<email>fabque@gmail.com</email>
+			<name>Fabricio Quevedo</name>
+			<organization>FRRe</organization>
+			<roles>
+				<role>DEVELOPER</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<comments>
+            All source code is made available under the terms of the Apache Software License 2.0
+            </comments>
+		</license>
+	</licenses>
+
+	<!-- Software Configuration Management -->
+	<scm>
+		<connection>scm:git:https://github.com/jorgevillaverde/dacs.git</connection>
+		<developerConnection>scm:git:https://github.com/jorgevillaverde/dacs.git</developerConnection>
+		<url>https://github.com/jorgevillaverde/dacs</url>
+		<tag>dacs</tag>
+	</scm>
+
+	<!-- Organization -->
+	<organization>
+		<name>Universidad Tecnólgica Nacional - Facultada Regional Resistencia</name>
+		<url>http://www.frre.utn.edu.ar</url>
+	</organization>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Test dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<type>jar</type>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${javaee.version}</version>
+			</dependency>
+
+			<!-- MySQL Driver -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+
+			<!-- Loggin -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- Hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- Hibernate Validator -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate.validator.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.omnifaces</groupId>
+				<artifactId>omnifaces</artifactId>
+				<version>${omni.faces.version}</version>
+			</dependency>
+
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+				<!-- Compiler plugin -->
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.version}</version>
+					<configuration>
+						<source>${maven.compiler.source}</source>
+						<target>${maven.compiler.target}</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<!-- JRebel Plugin -->
+				<plugin>
+					<groupId>org.zeroturnaround</groupId>
+					<artifactId>jrebel-maven-plugin</artifactId>
+					<version>${maven.jrebel.version}</version>
+					<configuration>
+						<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+						<alwaysGenerate>true</alwaysGenerate>
+						<showGenerated>true</showGenerated>
+					</configuration>
+					<executions>
+						<execution>
+							<id>generate-rebel-xml</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Flyway DB -->
+				<plugin>
+					<groupId>org.flywaydb</groupId>
+					<artifactId>flyway-maven-plugin</artifactId>
+					<version>${flyway.version}</version>
+					<configuration>
+						<url>${flyway.dacs.url}</url>
+						<user>${flyway.dacs.user}</user>
+						<password>${flyway.dacs.password}</password>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${mysql.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

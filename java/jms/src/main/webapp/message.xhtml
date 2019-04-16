@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head jsf:id="head">
+    <title>JMS Example</title>
+</head>
+<body jsf:id="body">
+	<h2>JMS Example</h2>
+    <form jsf:id="form">
+    	<h:panelGrid columns="2">
+    		<label jsf:for="message">Mensaje:</label>
+    		<input type="text" jsf:id="message" jsf:value="#{sendMessageBean.message}"
+                    placeholder="Ingrese un mensaje" data-required="true">
+                
+         	</input>
+        </h:panelGrid>
+        <h:commandButton value="Enviar Mensaje"
+                action="#{sendMessageBean.sendMessage}"/>
+    </form>
+</body>
+</html>

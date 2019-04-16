@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<composite:interface>
+		<composite:attribute name="comentarios"/>
+	</composite:interface>
+	<composite:implementation>
+		<h:outputStylesheet>
+			.comentarioFecha{
+				width:150px;
+			}
+			.comentarioUsuario{
+				width:150px;
+			}
+			.comentarioTexto{
+			}
+		</h:outputStylesheet>
+		
+		<rich:editor id="comentario" 
+			toolbar="basic"
+			height="100px"
+			width="600px"
+			value="#{ticketBean.comentario}"
+			style="margin-bottom: 1em">
+			<f:validateLength minimum="1" maximum="4098" />
+		</rich:editor>
+		
+		<h:commandLink id="comentario-add"
+			style="margin-bottom:5px; "
+			styleClass="btn btn-success"
+			action="#{ticketBean.addComentario}">
+			<i class="icon-ok" title="#{messages.comentarioAdd}"></i>
+			<h:outputText value=" #{messages.comentarioAdd}" />
+			<f:ajax execute="@form" render="comentariosTable comentario"/>
+		</h:commandLink>
+		
+		<rich:dataTable value="#{cc.attrs.comentarios}"
+			columnClasses="comentarioFecha,comentarioUsuario,comentarioTexto"
+         	styleClass="table table-bordered table-striped table-condensed"
+            keepSaved="true" id="comentariosTable" var="result" rows="20">
+			
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.comentarioFecha}" />
+				</f:facet>
+
+				<h:outputText value="#{result.fecha}">
+					<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+				</h:outputText>
+            </h:column>
+
+            <h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.comentarioUsuario}" />
+				</f:facet>
+
+				<h:outputText value="#{result.usuario.name}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.comentarioTexto}" />
+				</f:facet>
+
+				<h:outputText value="#{result.comentario}" escape="false"/>
+            </h:column>
+
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" 
+                    renderIfSinglePage="false"
+                    stepControls="show"
+                    fastControls="hide"
+                    styleClass="pagination"
+                    for="comentariosTable" maxPages="10">
+                </rich:dataScroller>
+            </f:facet>            
+		</rich:dataTable>
+	</composite:implementation>
+</html>

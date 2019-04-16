@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+<composite:interface>
+	<composite:attribute name="documentos" />
+	<composite:attribute name="bean" />
+</composite:interface>
+<composite:implementation>
+	<rich:dataTable value="#{cc.attrs.documentos}"
+		styleClass="table table-bordered table-striped table-condensed"
+		keepSaved="true" id="documentosTable" var="result" rows="20">
+		<h:column>
+        	<f:facet name="header">
+            	<h:outputText value="#{messages.archivoName}" />
+			</f:facet>
+			<h:commandLink action="#{cc.attrs.bean.downloadFile(result.evidencia)}">
+				<h:outputText value="#{result.evidencia.name}" />
+			</h:commandLink>
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages.archivoSize}" />
+			</f:facet>
+			<h:outputText value="#{result.evidencia.length}" converter="ar.com.nbch.web.converter.FileSizeConverter" />
+		</h:column>
+        			
+        <h:column>
+        	<f:facet name="header">
+				<h:outputText value="#{messages.archivoUsuario}" />
+			</f:facet>
+			<h:outputText value="#{result.usuario.name}"/>
+		</h:column>
+
+		<h:column>
+        	<f:facet name="header">
+				<h:outputText value="#{messages.ticketEvidenciaFecha}" />
+			</f:facet>
+			<h:outputText value="#{result.fecha}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+			</h:outputText>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+        	</f:facet>
+			<h:commandLink id="remove-documento"										
+				action="#{cc.attrs.bean.removeDocumento(result)}">
+				<i class="icon-remove" title="#{messages.remove}"></i>
+				<f:ajax render="documentosTable"/>
+			</h:commandLink>
+    	</h:column>
+	</rich:dataTable>
+	
+	<rich:fileUpload id="upload"
+		style="heigth:100px;" 
+    	fileUploadListener="#{cc.attrs.bean.agregarArchivoListener}" 
+    	acceptedTypes="pdf, doc, docx, png, jpg, zip, rar, msg, xls, xlsx"
+    	maxFilesQuantity="1"
+        addLabel="Agregar archivo..." 
+        clearAllLabel="Quitar Todo" 
+        clearLabel="Quitar"
+        stopEntryLabel="Detener proceso" 
+        deleteLabel="Quitar"
+        uploadLabel="Subir">
+        <a4j:ajax event="uploadcomplete" 
+        	execute="@form" 
+        	render="documentosTable upload" />
+	</rich:fileUpload>					
+
+</composite:implementation>
+</html>

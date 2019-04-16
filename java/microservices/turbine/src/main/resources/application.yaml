@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: turbine
+info:
+  component: turbine
+
+server:
+  port: ${PORT:8082}
+
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs.ms.turbine=debug"
+      - "org.springframework=info"
+
+# configure eureka client
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+
+turbine:
+  clusterNameExpression: new String("default")
+  appConfig: GREETING,SERVICE-A,SERVICE-B
+  combineHostPort: true

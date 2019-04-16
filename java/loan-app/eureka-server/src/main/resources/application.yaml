@@ -1,0 +1,11 @@
+server:
+  port: ${PORT:8761}
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs=debug"
+      - "org.springframework=info"    

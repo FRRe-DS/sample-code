@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+  <context-root>jaas</context-root>
+  <security-domain>dacs-security</security-domain>
+</jboss-web>

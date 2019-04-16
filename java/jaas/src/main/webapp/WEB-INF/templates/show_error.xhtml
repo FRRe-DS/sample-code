@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+	<c:if test="#{!empty facesContext.maximumSeverity and fn:length(facesContext.messages) == 1}">
+		<c:choose>
+			<c:when test="#{facesContext.maximumSeverity.ordinal == 0}">
+				<div id="info-message">
+	    			<div class="alert alert-success nav-message">
+	    				<button type="button" class="close" data-dismiss="alert">&#215;</button>
+    					<h:messages styleClass="infoMessages" errorStyle="hide" globalOnly="true" />
+				    </div>
+				</div>			
+			</c:when>
+			<c:otherwise>
+				<div id="error-message">
+					<div class="alert alert-error nav-message">
+	    				<button type="button" class="close" data-dismiss="alert">&#215;</button>
+	   					<h:messages styleClass="infoMessages" errorStyle="hide" globalOnly="false" />
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>	
+		<br/>				
+	</c:if>
+</ui:composition>
+</html>

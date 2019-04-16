@@ -1,0 +1,165 @@
+version: '3'
+services:
+  rabbit:
+    image: rabbitmq:3-management
+    # ports:
+    #   - 5672:5672
+    #   - 15672:15672
+    networks:
+      - loan-net
+
+  eureka-server:
+    build:
+      context:
+        ./eureka-server
+    ports:
+      - 8761:8761
+    restart: unless-stopped
+    networks:
+      - loan-net
+
+  config-server:
+    build:
+      context:
+        ./config-server
+    restart: always
+    ports:
+      - 8888:8888
+    links:
+      - eureka-server:eureka-server
+      - rabbit:rabbit
+    networks:
+      - loan-net
+
+  client-service:
+    build:
+      context:
+        ./client-service
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server:eureka-server
+      - mysql01:mysql01
+      - rabbit:rabbit
+    networks:
+      - loan-net
+
+  savings-account-service:
+    build:
+      context:
+        ./savings-account-service
+    restart: unless-stopped
+    links:
+      - eureka-server:eureka-server
+      - mysql01:mysql01
+      - rabbit:rabbit
+    networks:
+      - loan-net
+
+  scoring-service:
+    build:
+      context:
+        ./scoring-service
+    restart: unless-stopped
+    links:
+      - eureka-server:eureka-server
+      - rabbit:rabbit
+    networks:
+      - loan-net
+
+  mysql01:
+    image: mysql:latest
+    networks:
+      - loan-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=ThePassword
+      - MYSQL_DATABASE=client-db
+    volumes:
+      - mysql01-volume:/var/lib/mysql
+
+  # mysql02:
+  #   image: mysql:latest
+  #   networks:
+  #     - loan-net
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=ThePassword
+  #     - MYSQL_DATABASE=savings-account-db
+  #   volumes:
+  #     - mysql02-volume:/var/lib/mysql
+  #
+  # mysql03:
+  #   image: mysql:latest
+  #   networks:
+  #     - loan-net
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=ThePassword
+  #     - MYSQL_DATABASE=zipkin
+  #   volumes:
+  #     - mysql03-volume:/var/lib/mysql
+
+  # Zuul API Gateway
+  api-gateway:
+    build:
+      context:
+        ./api-gateway
+    ports:
+      - 8765:8765
+    restart: unless-stopped
+    networks:
+      - loan-net
+    links:
+      - client-service:client-service
+      - savings-account-service:savings-account-service
+      - scoring-service:scoring-service
+
+  # Zipkin
+  zipkin-server:
+    build:
+      context:
+        ./zipkin-server
+    # ports:
+    #   - 9411:9411
+    restart: unless-stopped
+    links:
+      - rabbit:rabbit
+      - mysql01:mysql01
+    networks:
+      - loan-net
+
+  # Turbine
+  turbine:
+    build:
+      context:
+        ./turbine
+    restart: unless-stopped
+    networks:
+      - loan-net
+    links:
+      - eureka-server:eureka-server
+      - savings-account-service:savings-account-service
+      - client-service:client-service
+
+  # Hystrix Dashboard
+  hystrix-dashboard:
+    build:
+      context:
+        ./hystrix-dashboard
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+    networks:
+      - loan-net
+    links:
+      - turbine
+
+networks:
+  loan-net:
+    driver: overlay
+
+volumes:
+  mysql01-volume:
+  # mysql02-volume:
+  # mysql03-volume:

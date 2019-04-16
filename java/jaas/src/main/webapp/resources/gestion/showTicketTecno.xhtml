@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+<composite:interface>
+	<composite:attribute name="ticket" />
+	<composite:attribute name="referentes" />
+	<composite:attribute name="informados" />
+</composite:interface>
+<composite:implementation>
+	<fieldset>
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketTipo}:" for="tipo"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input"> <h:outputText
+						id="tipo" value="#{cc.attrs.ticket.tipo.descripcion}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketTitulo}:" for="titulo"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input"> <h:outputText
+						id="titulo" value="#{cc.attrs.ticket.name}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketDescripcion}:"
+				for="descripcion" styleClass="control-label" />
+			<div class="controls">
+				<div class="span8">
+					<h:outputText id="descripcion" escape="false"
+						value="#{cc.attrs.ticket.descripcion}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketComentario}:"
+				for="comentario" styleClass="control-label" />
+			<div class="controls">
+				<div class="span8">
+					<h:outputText id="comentario" escape="false"
+						value="#{cc.attrs.ticket.comentario}" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketFechaCreacion}:"
+				for="fechaCreacion" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input"> <h:outputText
+						id="fechaCreacion" value="#{cc.attrs.ticket.fechaCreacion}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</span>
+			</div>
+		</div>
+
+		<ui:fragment rendered="#{cc.attrs.ticket.fechaVencimiento != null}">
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketFechaVencimiento}:"
+				for="fechaVencimiento" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input"> <h:outputText
+						id="fechaVencimiento" value="#{cc.attrs.ticket.fechaVencimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</span>
+			</div>
+		</div>
+		</ui:fragment>
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketSolicitadoBy}:"
+				for="solicitadoPor" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="solicitadoPor" value="#{cc.attrs.ticket.solicitadoPor.name}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.activoTipo}:" for="tipoActivo"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="tipoActivo" value="#{cc.attrs.ticket.activo.tipo.tipoActivo.name}" />
+				</span>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<h:outputLabel value="#{messages.activoSubtipo}:" for="subtipoActivo"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="subtipoActivo" value="#{cc.attrs.ticket.activo.tipo.name}" />
+				</span>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketActivo}:" for="activo"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="activo" value="#{cc.attrs.ticket.activo.name}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketFase}:" for="fase"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="fase" value="#{cc.attrs.ticket.fase.descripcion}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketEstado}:" for="estado"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="estado" value="#{messages[cc.attrs.ticket.estado.label]}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketUsuarioAsignado}:"
+				for="usuarioAsignado" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="usuarioAsignado"
+						value="#{cc.attrs.ticket.usuarioAsignado.name}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketNroReclamo}:" for="nroReferencia"
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"> <h:outputText
+						id="nroReferencia" value="#{cc.attrs.ticket.entradaDcm}" />
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketPrioridad}:"
+				for="prioridad" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input"> 
+					<h:outputText id="prioridad" 
+						value="#{cc.attrs.ticket.prioridad}">
+					</h:outputText>
+				</span>
+			</div>
+		</div>
+				
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketReferentes}:"
+				for="referentesTable" 
+				styleClass="control-label" />
+			<div class="controls" style="margin-left:215px;">
+				<rich:dataTable value="#{cc.attrs.referentes}"
+					styleClass="table table-bordered table-striped table-condensed"
+					keepSaved="true" id="referentesTable" var="result" rows="10">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages.ticketReferentes}" />
+						</f:facet>
+
+						<h:outputText value="#{result.name}" />
+					</h:column>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="scroller" renderIfSinglePage="false"
+							stepControls="show" fastControls="hide" styleClass="pagination"
+							for="referentesTable" maxPages="10">
+						</rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.ticketInformados}:"
+				for="informadosTable" 
+				styleClass="control-label" />
+			<div class="controls" style="margin-left:215px;">
+				<rich:dataTable value="#{cc.attrs.informados}"
+					styleClass="table table-bordered table-striped table-condensed"
+					keepSaved="true" id="informadosTable" var="result" rows="10">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages.ticketInformado}" />
+						</f:facet>
+
+						<h:outputText value="#{result.name}" />
+					</h:column>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="scroller" renderIfSinglePage="false"
+							stepControls="show" fastControls="hide" 
+							styleClass="pagination"
+							for="informadosTable" maxPages="10">
+						</rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</div>
+		</div>
+	</fieldset>
+</composite:implementation>
+</html>

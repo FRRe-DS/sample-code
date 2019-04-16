@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<composite:interface>
+		<composite:attribute name="transiciones"/>
+	</composite:interface>
+	<composite:implementation>
+		<rich:dataTable value="#{cc.attrs.transiciones}"
+         	styleClass="table table-bordered table-striped table-condensed"
+            keepSaved="true" id="transicionesTable" var="result" rows="20">
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionAccion}" />
+				</f:facet>
+
+				<h:outputText value="#{messages[result.accion.label]}" />
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionFechaCambio}" />
+				</f:facet>
+
+				<h:outputText value="#{result.fechaCambio}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionHoraCambio}" />
+				</f:facet>
+
+				<h:outputText value="#{result.fechaCambio}">
+					<f:convertDateTime pattern="hh:mm:ss"/>
+				</h:outputText>
+            </h:column>
+            <h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionEjecutor}" />
+				</f:facet>
+
+				<h:outputText value="#{result.ejecutorAccion.name}"/>
+            </h:column>
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionUsuarioDesde}" />
+				</f:facet>
+
+				<h:outputText value="#{result.usuarioDesde.name}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionUsuarioHasta}" />
+				</f:facet>
+
+				<h:outputText value="#{result.usuarioHasta.name}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionFaseDesde}" />
+				</f:facet>
+
+				<h:outputText value="#{result.faseDesde.descripcion}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionFaseHasta}" />
+				</f:facet>
+
+				<h:outputText value="#{result.faseHasta.descripcion}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionEstadoDesde}" />
+				</f:facet>
+
+				<h:outputText value="#{messages[result.estadoDesde.label]}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionEstadoHasta}" />
+				</f:facet>
+
+				<h:outputText value="#{messages[result.estadoHasta.label]}"/>
+            </h:column>
+
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.ticketFechaVencimiento}" />
+				</f:facet>
+
+				<h:outputText value="#{result.fechaVencimiento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+            </h:column>
+            
+			<h:column>
+            	<f:facet name="header">
+                	<h:outputText value="#{messages.transicionObservacion}" />
+				</f:facet>
+
+				<h:outputText value="#{result.observacion}" escape="false"/>
+            </h:column>
+            
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" 
+                    renderIfSinglePage="false"
+                    stepControls="show"
+                    fastControls="hide"
+                    styleClass="pagination"
+                    for="transicionesTable" maxPages="10">
+                </rich:dataScroller>
+            </f:facet>              
+		</rich:dataTable>
+	</composite:implementation>
+</html>

@@ -1,0 +1,56 @@
+server:
+  port: ${PORT:8080}
+
+# configure eureka client
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+
+# custom attribute for the actuator info endpoint
+info:
+  app:
+    name: scoring-service
+    
+# give the application a name
+spring:
+  application:
+    name: scoring-service
+#  jpa:
+#    show-sql: true
+#    ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5Dialect
+#    hibernate:
+#      ddl-auto: update
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#  datasource:
+#    url: jdbc:mysql://mysql01:3306/client-db
+#    username: root
+#    password: ThePassword
+#    driver-class-name: com.mysql.jdbc.Driver
+#    testWhileIdle: true
+#    validationQuery: SELECT 1
+    
+       
+# disable actuagor security for endpoints 
+management:
+  security:
+    enabled: false
+
+# custom logging settings
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs.loan.scoring=debug"
+      - "org.springframework=info"
+
+# Ribbon is enabled
+ribbon:
+  eureka:
+    enabled: true
+    

@@ -1,0 +1,94 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mysql01-pv
+  labels:
+    type: local
+    app: loan-app
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/data01"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql01-pvc
+  labels:
+    app: loan-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: loan-app-eureka-server
+spec:
+  selector:
+    matchLabels:
+      app: loan-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: loan-app
+    spec:
+      containers:
+      - image: dtr.nbchad.local/d97villaje/eureka-server:v0.1
+        name: eureka-server
+        ports:
+        - containerPort: 8761
+
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: loan-app-client-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: loan-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: loan-app
+    spec:
+      containers:
+      - image: dtr.nbchad.local/d97villaje/client-service:v0.1
+        name: client-service
+        ports:
+          - containerPort: 8082
+      - image: mysql:latest
+        name: mysql01
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql01-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: client-db
+        ports:
+          - containerPort: 3306
+            name: mysql
+        volumeMounts:
+        - name: mysql01-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql01-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql01-pvc

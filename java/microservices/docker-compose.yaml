@@ -1,0 +1,124 @@
+version: '3'
+services:
+  eureka-server:
+    build:
+      context:
+        ./eureka-server
+    ports:
+      - 8761:8761
+    restart: unless-stopped
+    networks:
+      - dacs-ms
+
+  rabbit:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - dacs-ms
+
+  service-a:
+    build:
+      context:
+        ./service-a
+#    ports:
+#      - 8083:8083
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    networks:
+      - dacs-ms
+
+  service-b:
+    build:
+      context:
+        ./service-b
+    ports:
+      - 8084:8084
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    networks:
+      - dacs-ms
+
+  greeting:
+    build:
+      context:
+        ./greeting
+    ports:
+      - 8085:8085
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+      - service-a
+      - service-b
+    links:
+      - eureka-server
+      - service-a
+      - service-b
+    networks:
+      - dacs-ms
+
+  # Zuul API Gateway
+  api-gateway:
+    build:
+      context:
+        ./api-gateway
+    ports:
+      - 8765:8765
+    restart: unless-stopped
+    networks:
+      - dacs-ms
+    depends_on:
+      - service-a
+      - service-b
+      - greeting
+
+  # Zipkin
+  zipkin-server:
+    build:
+      context:
+        ./zipkin-server
+    ports:
+      - 9411:9411
+    restart: unless-stopped
+    networks:
+      - dacs-ms
+
+  # Turbine
+  turbine:
+    build:
+      context:
+        ./turbine
+    ports:
+      - 8082:8082
+    restart: unless-stopped
+    networks:
+      - dacs-ms
+    links:
+      - eureka-server
+      - service-a
+      - service-b
+
+  # Hystrix Dashboard
+  hystrix-dashboard:
+    build:
+      context:
+        ./hystrix-dashboard
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+    networks:
+      - dacs-ms
+    links:
+      - turbine
+
+networks:
+  dacs-ms:
+    driver: bridge

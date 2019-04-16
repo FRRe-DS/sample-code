@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: hystrix-dashboard
+info:
+  component: hystrix-dashboard
+
+server:
+  port: ${PORT:8090}
+  
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs.ms.dashboard=debug"
+      - "org.springframework=info"

@@ -1,0 +1,230 @@
+/* Copyright 2012 Nuevo Banco del Chaco S.A. */
+
+.positiveImporte{
+	text-align: right;
+}
+
+.negativeImporte{
+	color:red;
+	text-align: right;
+}
+
+.rf-cal-extr{
+	
+}
+
+
+/* Richfaces DataTable Table footer */
+
+.rf-ds{
+	white-space: normal;
+	display: inline;
+	padding: 0px;	
+}
+
+.rf-ds-btn{
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #DDDDDD;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+}
+
+.rf-ds-dis:hover{
+	color: #333333;
+}
+
+
+
+.rf-ds-nmb-btn{
+	margin-left: 0px;
+    margin-right: 0px;
+    width: 8px;
+}
+
+.rf-ds-nmb-btn:hover{
+	border-top-width:1px;
+	border-right-width:1px;
+	border-bottom-width:1px;
+	border-left-width:0px;
+}
+
+.rf-ds-act{
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #DDDDDD;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+}
+
+.rf-ds-act:hover {
+	background-color: #F5F5F5;
+	border-width: 1px 1px 1px 0;
+	border-color: #DDDDDD;
+}
+
+.rf-ds-btn:hover {
+    background-color: #F5F5F5;
+}
+
+.rf-ds-btn-next, .rf-ds-btn-fastfwd, .rf-ds-btn-last {
+    margin-left: 0px;
+}
+
+.rf-ds-btn-next:hover, .rf-ds-btn-last:hover {
+	color: #0088CC;
+	background-color: #F5F5F5;
+	border-width: 1px 1px 1px 0;
+	border-color: #DDDDDD;
+}
+
+.rf-dt-tft{
+	
+}
+
+.rf-cal-extr{
+	-moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;	
+}
+
+.rf-ds-btn-first, .rf-ds-btn-fastrwd, .rf-ds-btn-prev {
+    margin-right: 0px;
+}
+
+.rf-dt{
+	border-collapse: separate;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+}
+
+.rf-ds-btn-first{
+	border-left-width: 1px;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Arreglos */
+.table tbody tr:hover td,
+.table tbody tr:hover th {
+  text-decoration: none;
+}
+
+
+#info-message{
+    display: block;
+    float: left;
+    left: 0;
+    margin: 5px 0px 5px;
+    min-width: 500px;
+    max-width: 600px;
+    max-height: 40px;
+    position: relative;	
+}
+
+#error-message{
+    display: block;
+    float: left;
+    left: 0;
+    margin: 5px 0px 5px;
+    min-width: 500px;
+    max-width: 600px;
+    max-height: 40px;
+    position: relative;	
+}
+
+.infoMessages {
+	list-style: none outside none;
+	margin: 0px;	
+}
+
+.errorMessages {
+	list-style: none outside none;
+	margin: 0px;	
+}
+
+
+.nav-message{
+	margin: 0px;
+	padding: 5px 35px 5px 14px;
+}
+
+.search-column table,tr,td,th {
+	background-color: #FFFFFF;
+	border-left-width: 0px;
+}
+
+.form-horizontal .search-label {
+  float: left;
+  width: 170px;
+  padding-top: 5px;
+  text-align: right;
+}
+
+
+
+/* Search Table Column Styles */
+.pf-sc-1{
+	width: 140px;
+}
+.pf-sc-2{
+	width: 70px;
+}
+.pf-sc-3{
+	width: 190px;
+}
+.pf-sc-4{
+	width: 150px;
+	min-width: 120px;
+}
+.pf-sc-5{
+	width: 190px;
+}
+.pf-sc-6{
+	width: 150px;
+	min-width: 120px;
+}
+.pf-sc-7{
+	width: 78px;	
+}
+.pf-sc-8{
+	width: 70px;
+}
+
+
+/* Movimientos de Caja de Ahorro */
+.mca-sc-1{
+	width: 50px;
+}
+.mca-sc-2{
+	width: 180px;
+}
+.mca-sc-3{
+	width: 100px;
+}
+.mca-sc-4{
+	width: 450px;
+	min-width: 150px;
+}
+
+td.mca-sc-5 {
+	width: 78px;
+    text-align: right;
+}

@@ -1,0 +1,26 @@
+server:  
+  port: ${PORT:9411}
+
+spring:  
+  application:
+    name: zipkin-server
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: guest
+    password: guest  
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://mysql03:3306/zipkin?autoReconnect=true
+    username: root
+    password: ThePassword
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+  sleuth:
+    enabled: false
+zipkin:
+  storage:
+    type: mysql    

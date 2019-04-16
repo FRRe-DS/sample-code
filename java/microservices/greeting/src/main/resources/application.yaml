@@ -1,0 +1,90 @@
+server:
+  port: ${PORT:8085}
+info:
+  app:
+    name: greeting
+spring:
+  application:
+    name: greeting
+
+# disable actuagor security for endpoints
+management:
+  security:
+    enabled: false
+
+# configure eureka client
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+
+# Scenario 5
+ribbon:
+  eureka:
+    enabled: true
+  MaxAutoRetries: 3 #(1)
+  MaxAutoRetriesNextServer: 1 #(4)
+  ReadTimeout: 100000 #(2)
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000 #(3)
+
+# Scenario 1
+#ribbon:
+#  eureka:
+#    enabled: true
+#  MaxAutoRetries: 0 #(2)
+#  MaxAutoRetriesNextServer: 0 #(3)
+#  ReadTimeout: 1000 #(4)
+#
+#feign:
+#  hystrix:
+#    enabled: false #(1)
+
+# Scenario 2
+#ribbon:
+#  eureka:
+#    enabled: true
+#  MaxAutoRetries: 0 #(2)
+#  MaxAutoRetriesNextServer: 1 #(3)
+#  ReadTimeout: 1000 #(4)
+#
+#feign:
+#  hystrix:
+#    enabled: false #(1)
+
+# Scenario 3
+#ribbon:
+#  eureka:
+#    enabled: true
+#  MaxAutoRetries: 0
+#  MaxAutoRetriesNextServer: 0
+#  ReadTimeout: 10000
+#
+#feign:
+#  hystrix:
+#    enabled: false
+
+# Scenario 4
+#ribbon:
+#  eureka:
+#    enabled: true
+#  MaxAutoRetries: 0 #(1)
+#  MaxAutoRetriesNextServer: 0
+#  ReadTimeout: 2000 #(2)
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 1000 #(3)

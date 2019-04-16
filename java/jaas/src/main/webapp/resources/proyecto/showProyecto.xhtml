@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+<composite:interface>
+	<composite:attribute name="proyecto" />
+</composite:interface>
+<composite:implementation>
+   	<fieldset>
+   		<div class="control-group">
+   			<h:outputLabel value="#{messages.proyectoId}:" 
+   				for="id" 
+   				styleClass="control-label"/>
+   			<div class="controls">
+    			<span class="input-xlarge uneditable-input">
+	   				<h:outputText id="id" value="#{cc.attrs.proyecto.id}"/>
+	   			</span>			    			
+   			</div> 
+   		</div>
+   		
+		<div class="control-group">
+			<h:outputLabel value="#{messages.proyectoNombre}:"
+				for="nombre" 
+				styleClass="control-label" />
+			<div class="controls">
+    			<span class="input-xlarge uneditable-input">
+	   				<h:outputText id="nombre" 
+	   					value="#{cc.attrs.proyecto.name}"/>
+	   			</span>			    			
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<h:outputLabel value="#{messages.proyectoPropietario}:"
+				for="propietario" 
+				styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input">
+	   				<h:outputText id="propietario" 
+	   					value="#{cc.attrs.proyecto.propietario.name}"/>
+	   			</span>						
+			</div>
+		</div>	
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.proyectoFechaCreacion}:"
+				for="fechaProduccion" styleClass="control-label" />
+			<div class="controls">
+				<span class="input-xlarge uneditable-input">
+	   				<h:outputText id="fechaProduccion" 
+	   					value="#{cc.attrs.proyecto.fechaCreacion}">
+	   					<f:convertDateTime pattern="dd/MM/yyyy"/>
+	   				</h:outputText>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<h:outputLabel value="#{messages.proyectoDescripcion}:"
+				for="descripcion" 
+				styleClass="control-label" />
+			<div class="controls">
+				<div class="span8">
+					<h:outputText id="descripcion" 
+						escape="false"
+						value="#{cc.attrs.proyecto.descripcion}" />
+				</div>						
+			</div>
+		</div>
+	</fieldset>
+</composite:implementation>
+</html>

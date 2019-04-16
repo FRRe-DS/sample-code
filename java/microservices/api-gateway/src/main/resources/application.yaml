@@ -1,0 +1,42 @@
+info:
+  component: Edge Server
+
+server:
+  port: ${PORT:8765}
+
+logging:
+  level:
+      - ".=info"
+      - "ar.edu.utn.frre.dacs.ms.apigateway=debug"
+      - "org.springframework=info"
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    service-a:
+      path: /service-a/**
+      serviceId: service-a
+    service-b:
+      path: /service-b/**
+      serviceId: service-b
+    compose-service:
+      path: /greeting/**
+      serviceId: greeting
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password@${EUREKA_SERVER:eureka-server}:8761/eureka/
+    registerWithEureka: false
