@@ -1,0 +1,92 @@
+buildscript {
+	repositories {
+		maven { url "https://plugins.gradle.org/m2/" }
+ 	}
+	dependencies {
+		classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
+		classpath "gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0"
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+ext['grpc.version'] = '1.16.1'
+
+group = 'ar.edu.utn.frre.dacs.proto'
+version = '0.0.1'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+
+dependencies {
+	implementation group: 'io.grpc', name: 'grpc-stub', version: "${rootProject.ext['grpc.version']}"
+	implementation group: 'io.grpc', name: 'grpc-protobuf', version: "${rootProject.ext['grpc.version']}"
+	implementation group: 'io.grpc', name: 'grpc-netty', version: "${rootProject.ext['grpc.version']}"
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'ar.edu.utn.frre.dacs:model-jpa:1.0.0-SNAPSHOT'
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+apply plugin: 'eclipse'
+
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+
+	// Configure the protoc executable
+	protoc {
+	
+		// Download from repositories.
+		artifact = "com.google.protobuf:protoc:3.3.0"
+	}
+  
+  	// Add GRPC plugin.
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:${rootProject.ext['grpc.version']}"
+		}
+	}
+  
+	// Choose which tasks are executed.
+	generateProtoTasks {
+		all().each { task ->
+      		task.plugins {
+        		grpc {}
+      		}
+      	}
+	}
+	
+	generatedFilesBaseDir = "$projectDir/src/generated"
+}
+
+apply plugin: 'eclipse'
+eclipse.classpath.file.whenMerged {
+	def grpc = new org.gradle.plugins.ide.eclipse.model.SourceFolder('src/generated/main/grpc', null)
+	grpc.getEntryAttributes().put("ignore_optional_problems", "true")
+	entries += grpc
+	def gjava = new org.gradle.plugins.ide.eclipse.model.SourceFolder('src/generated/main/java', null)
+	gjava.getEntryAttributes().put("ignore_optional_problems", "true")
+	entries += gjava
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package api;
+
+option java_package = "ar.edu.utn.frre.dacs.proto.dto";
+option java_outer_classname= "DACSProtos";
+option optimize_for = SPEED;
+
+// Calle
+message Calle {
+ int64 id = 1;
+ string nombre = 2;
+}
+
+message Provincia {
+ int64 id =1;
+ string nombre = 2;
+}
+
+// Direccion
+message Direccion {
+ int64 id = 1;
+ Calle calle = 2;
+ Provincia provincia = 3;
+ int32 altura = 4;
+ int32 piso = 5;
+ string departamento = 6;
+ string barrio = 7;
+ int32 codigoPostal = 8;
+}
+
+// Cliente
+message Cliente {
+  enum Sexo {
+    MASCULINO = 0;
+    FEMENINO = 1;
+  }
+  int64 id = 1;
+  int64 numeroDocumento = 2;
+  int64 cuitCuil = 3;
+  string primerNombre = 4;
+  string apellido = 5;
+  Sexo sexo = 6;
+  google.protobuf.Timestamp fechaNacimiento = 7;
+  repeated Direccion direcciones = 8;
+}
