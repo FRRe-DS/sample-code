@@ -37,7 +37,7 @@
 		<slf4j.version>1.7.25</slf4j.version>
 
 		<!-- Hibernate -->
-		<hibernate.version>5.2.12.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<hibernate.validator.version>5.3.5.Final</hibernate.validator.version>
 
 		<!-- Flyway DB -->
